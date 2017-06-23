@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.jorger9.platzigram.LoginActivity"
+    tools:context="com.jorger9.platzigram.login.view.LoginActivity"
     android:background="@color/colorPrimary"
     >
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/text_button_login"
                     android:theme="@style/RaisedButtonDark"
-                    android:onClick="goContainerActivity"
+                    android:onClick="goHome"
                     />
 
                 <RelativeLayout
@@ -108,6 +108,10 @@
                         android:layout_toRightOf="@id/dontHaveAccount"
                         android:onClick="goCreateAccount"
                         />
+                    <ProgressBar
+                        android:id="@+id/progressbarlogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </RelativeLayout>
 
