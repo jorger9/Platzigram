@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.jorger9.platzigram.R;
-import com.jorger9.platzigram.view.fragment.HomeFragment;
+import com.jorger9.platzigram.post.view.HomeFragment;
 import com.jorger9.platzigram.view.fragment.ProfileFragment;
 import com.jorger9.platzigram.view.fragment.SearchFragment;
 import com.roughike.bottombar.BottomBar;

@@ -20,4 +20,7 @@
     <string name="secondword_detail">Me gusta</string>
     <string name="search_hint">Buscar</string>
     <string name="login_error">Something happen: </string>
+    <string name="hint_title">Título</string>
+    <string name="hint_description">Descripción</string>
+    <string name="text_button_createpost">Crear post</string>
 </resources>
