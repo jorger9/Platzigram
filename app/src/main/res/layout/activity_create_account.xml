@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.jorger9.platzigram.view.CreateAccountActivity"
+    tools:context="com.jorger9.platzigram.login.view.CreateAccountActivity"
     >
 
     <include layout="@layout/actionbar_toolbar"/>

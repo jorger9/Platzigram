@@ -2,19 +2,22 @@ package com.jorger9.platzigram.login.view;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.jorger9.platzigram.R;
 import com.jorger9.platzigram.login.presenter.LoginPresenter;
 import com.jorger9.platzigram.login.presenter.LoginPresenterImpl;
 import com.jorger9.platzigram.view.ContainerActivity;
-import com.jorger9.platzigram.view.CreateAccountActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
 
@@ -22,10 +25,32 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     private Button login;
     private ProgressBar progressBarLogin;
     private LoginPresenter presenter;
+    private static final String TAG = "CreateAccountActivity" ;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                if(firebaseUser != null){
+                    Log.w(TAG,"Usuario logueado" + firebaseUser.getEmail());
+                }
+                else
+                {
+                    Log.w(TAG,"Usuario no logueado");
+                }
+
+            }
+        };
 
         userName         = (TextInputEditText)findViewById(R.id.username);
         password         = (TextInputEditText)findViewById(R.id.password);
@@ -39,9 +64,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
             @Override
             public void onClick(View v) {
-                presenter.signIn(userName.getText().toString(),password.getText().toString());
+                signIn(userName.getText().toString(),password.getText().toString());
+
             }
         });
+    }
+
+    private void signIn(String userName, String password) {
+        presenter.signIn(userName,password,this,firebaseAuth);
+    }
+
+    public void goCreateAccount(View view){
+        goCreateAccount();
     }
 
 
@@ -80,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     }
 
     @Override
-    public void goCreateAccount(View view) {
+    public void goCreateAccount( ) {
         Intent intent = new Intent(this, CreateAccountActivity.class);
         startActivity(intent);
     }
@@ -98,4 +132,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         startActivity(browserIntent);
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
+    }
 }

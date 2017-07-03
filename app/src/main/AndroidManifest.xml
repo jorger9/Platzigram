@@ -10,6 +10,7 @@
         android:required="false"/>
 
     <application
+        android:name=".PlatzigramApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -33,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.CreateAccountActivity"
+            android:name=".login.view.CreateAccountActivity"
             android:parentActivityName=".login.view.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
