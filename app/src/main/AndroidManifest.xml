@@ -17,6 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
         <provider
             android:authorities="com.jorger9.platzigram"
             android:name="android.support.v4.content.FileProvider"
@@ -49,6 +51,10 @@
                 android:value=".view.ContainerActivity" />
         </activity>
         <activity android:name=".post.view.NewPostActivity"></activity>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

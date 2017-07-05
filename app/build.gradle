@@ -18,6 +18,9 @@ android {
         }
     }
 }
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -37,7 +40,9 @@ dependencies {
     compile 'com.zoonref:simple-view-behavior:1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.firebase:firebase-auth:9.6.1'
-    testCompile 'junit:junit:4.12'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+        testCompile 'junit:junit:4.12'
 }
 
 apply plugin: 'com.google.gms.google-services'

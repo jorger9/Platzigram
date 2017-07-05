@@ -23,4 +23,6 @@
     <string name="hint_title">Título</string>
     <string name="hint_description">Descripción</string>
     <string name="text_button_createpost">Crear post</string>
+    <string name="menu_signout">Cerrar sesión</string>
+    <string name="menu_about">Acerca de</string>
 </resources>
