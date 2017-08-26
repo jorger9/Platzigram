@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.jorger9.platzigram.PlatzigramApplication;
@@ -72,15 +73,16 @@ public class NewPostActivity extends AppCompatActivity {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG,"Errior al subir la foto" + e.toString() );
+                FirebaseCrash.logcat(Log.WARN, TAG, "Errior al subir la foto" + e.toString());
                 e.printStackTrace();
+                FirebaseCrash.report(e);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri uriPhoto = taskSnapshot.getDownloadUrl();
                 String photoURL = uriPhoto.toString();
-                Log.w(TAG,"URL photo : " +photoURL);
+                FirebaseCrash.logcat(Log.WARN, TAG, "URL photo : " +photoURL);
             }
         });
 

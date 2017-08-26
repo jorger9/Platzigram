@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -24,6 +25,7 @@ public class PlatzigramApplication extends Application {
     public void onCreate() {
 
         super.onCreate();
+        FirebaseCrash.log("Inicializando variables en "+TAG);
 
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {

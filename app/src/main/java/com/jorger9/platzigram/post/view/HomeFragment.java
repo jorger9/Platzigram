@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.jorger9.platzigram.BuildConfig;
 import com.jorger9.platzigram.R;
 import com.jorger9.platzigram.adapter.PictureAdapterRecyclerView;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        FirebaseCrash.report(new Exception("Error de prueba desde Home Fragment"));
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         showToolbar(getResources().getString(R.string.tab_home),false,view);
         RecyclerView picturesRecycler = (RecyclerView) view.findViewById(R.id.pictureRecycler);
@@ -88,6 +90,7 @@ public class HomeFragment extends Fragment {
                 
             } catch (Exception e){
                 e.printStackTrace();
+                FirebaseCrash.report(e);
             }
 
             if (photoFile != null){

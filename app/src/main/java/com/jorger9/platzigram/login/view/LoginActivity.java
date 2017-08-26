@@ -30,6 +30,7 @@ import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.crash.FirebaseCrash;
 import com.jorger9.platzigram.R;
 import com.jorger9.platzigram.login.presenter.LoginPresenter;
 import com.jorger9.platzigram.login.presenter.LoginPresenterImpl;
@@ -44,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     private LoginButton loginButtonFacebook;
     private ProgressBar progressBarLogin;
     private LoginPresenter presenter;
-    private static final String TAG = "CreateAccountActivity" ;
+    private static final String TAG = "LoginActivitys" ;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private CallbackManager callbackManager;
@@ -65,12 +66,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
                 if(firebaseUser != null){
-                    Log.w(TAG,"Usuario logueado" + firebaseUser.getEmail());
+                   FirebaseCrash.logcat( Log.WARN, TAG, "Usuario logueado " + firebaseUser.getEmail());
                     goHome();
                 }
                 else
                 {
-                    Log.w(TAG,"Usuario no logueado");
+                    FirebaseCrash.logcat(Log.WARN, TAG, "Usuario no logueado");
                 }
 
             }
@@ -98,21 +99,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         loginButtonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.w(TAG,"Facebook login Success token: "+ loginResult.getAccessToken().getApplicationId());
+                FirebaseCrash.logcat(Log.WARN, TAG,"Facebook login Success token: "+ loginResult.getAccessToken().getApplicationId());
                 signInFacebookFirebase(loginResult.getAccessToken());
 
             }
 
             @Override
             public void onCancel() {
-                Log.w(TAG,"Facebook login cancelado");
+                FirebaseCrash.logcat(Log.WARN, TAG,"Facebook login cancelado");
 
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.w(TAG,"Facebook login error: " + error.toString());
+
+                FirebaseCrash.logcat(Log.WARN, TAG, "Facebook login error: " + error.toString());
                 error.printStackTrace();
+                FirebaseCrash.report(error);
 
             }
         });
@@ -131,9 +134,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
                     editor.putString("email",user.getEmail());
                     editor.commit();
                     goHome();
+                    FirebaseCrash.logcat(Log.DEBUG, TAG, "Login facebook exitoso ");
                 }
                 else{
-                    Toast.makeText(LoginActivity.this,"Login facebook no exitoso",Toast.LENGTH_SHORT).show();
+                    FirebaseCrash.logcat(Log.DEBUG, TAG, "Login facebook NO exitoso");
                 }
             }
         });
